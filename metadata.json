@@ -1,0 +1,6 @@
+{
+  "name": "Glow Academy",
+  "description": "World-class premium website for Glow Academy Kindergarten and Grade School education.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

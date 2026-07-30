@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glow Academy | Where Bright Minds Begin to Shine</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              royal: '#2563EB',
+              sky: '#60A5FA',
+              yellow: '#FBBF24',
+              green: '#10B981',
+              dark: '#0F172A',
+              softGray: '#F8FAFC',
+              slate: '#334155'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Fredoka"', 'cursive', 'sans-serif']
+          },
+          animation: {
+            'float-slow': 'float 6s ease-in-out infinite',
+            'float-medium': 'float 4s ease-in-out infinite 1s',
+            'float-fast': 'float 3s ease-in-out infinite 0.5s',
+            'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+            'spin-slow': 'spin 12s linear infinite'
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-14px) rotate(3deg)' }
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.6', transform: 'scale(1)' },
+              '50%': { opacity: '0.9', transform: 'scale(1.03)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar & Utilities */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F1F5F9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #93C5FD;
+      border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2563EB;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+    .glass-card-dark {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Soft Glow Shadows */
+    .shadow-glow-blue {
+      box-shadow: 0 10px 30px -5px rgba(37, 99, 235, 0.25);
+    }
+    .shadow-glow-yellow {
+      box-shadow: 0 10px 30px -5px rgba(251, 191, 36, 0.3);
+    }
+    .shadow-glow-green {
+      box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.25);
+    }
+
+    /* Scroll animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Modal transition */
+    .modal-backdrop {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-content {
+      transform: scale(0.92);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .modal-backdrop.active .modal-content {
+      transform: scale(1);
+    }
+  </style>
+</head>
+<body class="font-sans bg-slate-50 text-slate-800 antialiased selection:bg-brand-yellow selection:text-slate-900 overflow-x-hidden">
+
+  <!-- TOP ANNOUNCEMENT BAR -->
+  <div class="bg-gradient-to-r from-brand-royal via-blue-600 to-brand-green text-white text-xs sm:text-sm py-2 px-4 font-medium shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center justify-center bg-brand-yellow text-slate-900 text-xs px-2 py-0.5 rounded-full font-bold">2026-2027</span>
+        <span>Admissions Open for Kindergarten & Grade School! Limited seats available.</span>
+      </div>
+      <div class="flex items-center gap-4 text-xs">
+        <a href="#admissions" class="underline hover:text-brand-yellow transition-colors font-semibold">Virtual Campus Tour &amp; Info Pack</a>
+        <span class="hidden md:inline">|</span>
+        <span class="hidden md:inline"><i class="fa-solid fa-phone mr-1"></i> +1 (800) 555-GLOW</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER / NAVIGATION -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-100 transition-all duration-300" id="main-header">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- LOGO (Clean Graphic Logo with Graduation Cap & Star) -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-royal to-brand-sky flex items-center justify-center text-white shadow-glow-blue group-hover:scale-105 transition-transform duration-300">
+          <i class="fa-solid fa-graduation-cap text-2xl"></i>
+        </div>
+        <div>
+          <span class="font-heading text-2xl font-bold tracking-tight text-brand-royal group-hover:text-blue-700 transition-colors">Glow<span class="text-brand-yellow">Academy</span></span>
+          <span class="block text-[10px] uppercase font-extrabold tracking-widest text-slate-400">Kindergarten &amp; Grade School</span>
+        </div>
+      </a>
+
+      <!-- DESKTOP NAV LINKS -->
+      <nav class="hidden lg:flex items-center gap-8 font-semibold text-sm text-slate-600">
+        <a href="#about" class="hover:text-brand-royal transition-colors py-2">About</a>
+        <a href="#programs" class="hover:text-brand-royal transition-colors py-2">Programs</a>
+        <a href="#why-us" class="hover:text-brand-royal transition-colors py-2">Why Glow</a>
+        <a href="#experience" class="hover:text-brand-royal transition-colors py-2">Learning</a>
+        <a href="#facilities" class="hover:text-brand-royal transition-colors py-2">Facilities</a>
+        <a href="#achievements" class="hover:text-brand-royal transition-colors py-2">Achievements</a>
+        <a href="#admissions" class="hover:text-brand-royal transition-colors py-2">Admissions</a>
+        <a href="#faq" class="hover:text-brand-royal transition-colors py-2">FAQ</a>
+        <a href="#contact" class="hover:text-brand-royal transition-colors py-2">Contact</a>
+      </nav>
+
+      <!-- RIGHT CTA BUTTON -->
+      <div class="hidden lg:flex items-center gap-4">
+        <button onclick="openEnrollmentModal()" class="bg-gradient-to-r from-brand-royal to-blue-600 hover:from-blue-700 hover:to-blue-800 text-white font-bold text-sm px-6 py-3 rounded-xl shadow-glow-blue transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 flex items-center gap-2">
+          <i class="fa-solid fa-sparkles text-brand-yellow"></i>
+          <span>Enroll Now</span>
+        </button>
+      </div>
+
+      <!-- MOBILE MENU BUTTON -->
+      <button onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 hover:bg-slate-200 transition-colors" aria-label="Toggle Navigation">
+        <i class="fa-solid fa-bars text-lg" id="menu-icon"></i>
+      </button>
+
+    </div>
+
+    <!-- MOBILE DROPDOWN MENU -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-6 py-6 space-y-4 shadow-xl">
+      <nav class="flex flex-col gap-3 font-semibold text-slate-700">
+        <a href="#about" onclick="toggleMobileMenu()" class="py-2 hover:text-brand-royal">About Us</a>
+        <a href="#programs" onclick="toggleMobileMenu()" class="py-2 hover:text-brand-royal">Academic Programs</a>
+        <a href="#why-us" onclick="toggleMobileMenu()" class="py-2 hover:text-brand-royal">Why Choose Glow</a>
+        <a href="#experience" onclick="toggleMobileMenu()" class="py-2 hover:text-brand-royal">Learning Experience</a>
+        <a href="#facilities" onclick="toggleMobileMenu()" class="py-2 hover:text-brand-royal">Campus Facilities</a>
+        <a href="#achievements" onclick="toggleMobileMenu()" class="py-2 hover:text-brand-royal">Achievements & Stats</a>
+        <a href="#admissions" onclick="toggleMobileMenu()" class="py-2 hover:text-brand-royal">Admissions & Fees</a>
+        <a href="#faq" onclick="toggleMobileMenu()" class="py-2 hover:text-brand-royal">Frequently Asked Questions</a>
+        <a href="#contact" onclick="toggleMobileMenu()" class="py-2 hover:text-brand-royal">Contact Us</a>
+      </nav>
+      <div class="pt-4 border-t border-slate-100">
+        <button onclick="toggleMobileMenu(); openEnrollmentModal()" class="w-full bg-brand-royal text-white font-bold py-3.5 rounded-xl shadow-glow-blue text-center">
+          Enroll Now
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative pt-12 pb-20 md:py-24 bg-gradient-to-b from-blue-50/70 via-slate-50 to-white overflow-hidden">
+    
+    <!-- Abstract Educational Floating Icons (Pure Decorative Elements, NO People) -->
+    <div class="absolute inset-0 pointer-events-none select-none overflow-hidden">
+      <!-- Floating Book -->
+      <div class="absolute top-12 left-6 md:left-16 w-16 h-16 bg-white/80 rounded-2xl shadow-lg border border-white flex items-center justify-center text-brand-royal text-2xl animate-float-slow">
+        <i class="fa-solid fa-book-open-reader"></i>
+      </div>
+      <!-- Floating Graduation Cap -->
+      <div class="absolute top-28 right-8 md:right-24 w-14 h-14 bg-white/80 rounded-2xl shadow-lg border border-white flex items-center justify-center text-brand-yellow text-2xl animate-float-medium">
+        <i class="fa-solid fa-graduation-cap"></i>
+      </div>
+      <!-- Floating Pencil -->
+      <div class="absolute bottom-20 left-10 md:left-28 w-14 h-14 bg-white/80 rounded-2xl shadow-lg border border-white flex items-center justify-center text-brand-green text-2xl animate-float-fast">
+        <i class="fa-solid fa-pencil"></i>
+      </div>
+      <!-- Floating Globe -->
+      <div class="absolute bottom-32 right-12 md:right-36 w-16 h-16 bg-white/80 rounded-2xl shadow-lg border border-white flex items-center justify-center text-brand-sky text-2xl animate-float-slow">
+        <i class="fa-solid fa-globe"></i>
+      </div>
+      <!-- Glowing Orbs background -->
+      <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-brand-sky/20 rounded-full blur-3xl -z-10"></div>
+      <div class="absolute top-1/2 right-0 w-80 h-80 bg-brand-yellow/15 rounded-full blur-3xl -z-10"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        <!-- HERO TEXT CONTENT -->
+        <div class="lg:col-span-7 space-y-8 text-center lg:text-left fade-up">
+          
+          <div class="inline-flex items-center gap-2 bg-blue-100/80 border border-blue-200 text-brand-royal px-4 py-2 rounded-full font-semibold text-xs sm:text-sm">
+            <i class="fa-solid fa-star text-brand-yellow"></i>
+            <span>Excellence in Early Childhood &amp; Grade Education</span>
+          </div>
+
+          <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-[1.15] tracking-tight">
+            Where Bright Minds Begin to <span class="bg-gradient-to-r from-brand-royal via-blue-600 to-brand-green bg-clip-text text-transparent">Shine.</span>
+          </h1>
+
+          <p class="text-slate-600 text-base sm:text-lg lg:text-xl font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            Glow Academy provides a joyful, safe, and inspiring learning environment where children develop knowledge, creativity, confidence, and strong values from Kindergarten through Grade School.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+            <button onclick="openEnrollmentModal()" class="w-full sm:w-auto bg-brand-royal hover:bg-blue-700 text-white font-bold text-base px-8 py-4 rounded-2xl shadow-glow-blue transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex items-center justify-center gap-3">
+              <span>Enroll Now</span>
+              <i class="fa-solid fa-arrow-right text-sm"></i>
+            </button>
+
+            <a href="#programs" class="w-full sm:w-auto bg-white hover:bg-slate-100 text-slate-700 font-bold text-base px-8 py-4 rounded-2xl border border-slate-200 shadow-sm transition-all duration-300 hover:border-brand-sky flex items-center justify-center gap-3">
+              <i class="fa-solid fa-shapes text-brand-royal"></i>
+              <span>Explore Programs</span>
+            </a>
+          </div>
+
+          <!-- Hero Highlights Pills -->
+          <div class="pt-6 border-t border-slate-200/60 grid grid-cols-3 gap-4 max-w-lg mx-auto lg:mx-0 text-left">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-blue-100 text-brand-royal flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <div>
+                <p class="font-bold text-slate-900 text-sm">100% Safe</p>
+                <p class="text-xs text-slate-500">Secure Campus</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-certificate"></i>
+              </div>
+              <div>
+                <p class="font-bold text-slate-900 text-sm">Accredited</p>
+                <p class="text-xs text-slate-500">Top Curriculum</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-apple-whole"></i>
+              </div>
+              <div>
+                <p class="font-bold text-slate-900 text-sm">Nurturing</p>
+                <p class="text-xs text-slate-500">KG &amp; Grades 1-6</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- HERO ILLUSTRATION GRAPHIC (Modern 3D Campus graphic, strictly NO people) -->
+        <div class="lg:col-span-5 relative fade-up">
+          <div class="relative mx-auto max-w-md lg:max-w-none">
+            <!-- Background Decorative Framing -->
+            <div class="absolute -inset-4 bg-gradient-to-tr from-brand-sky via-brand-yellow to-brand-green rounded-3xl blur-2xl opacity-30 animate-pulse-glow"></div>
+            
+            <div class="relative bg-white p-4 rounded-3xl shadow-2xl border border-slate-100 overflow-hidden group">
+              <img 
+                src="/src/assets/images/glow_academy_hero_1785395132200.jpg" 
+                alt="Glow Academy Campus Modern Illustration" 
+                class="w-full h-auto rounded-2xl transform group-hover:scale-[1.02] transition-transform duration-500 object-cover"
+                referrerpolicy="no-referrer"
+                loading="eager"
+              />
+              
+              <!-- Floating Overlay Badge 1 -->
+              <div class="absolute top-8 left-8 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl shadow-xl border border-white flex items-center gap-3 animate-float-slow">
+                <div class="w-10 h-10 rounded-xl bg-brand-yellow/20 text-amber-700 flex items-center justify-center text-lg font-bold">
+                  <i class="fa-solid fa-cubes"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-xs text-slate-800">STEM &amp; Play</p>
+                  <p class="text-[10px] text-slate-500">Interactive Labs</p>
+                </div>
+              </div>
+
+              <!-- Floating Overlay Badge 2 -->
+              <div class="absolute bottom-8 right-8 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl shadow-xl border border-white flex items-center gap-3 animate-float-medium">
+                <div class="w-10 h-10 rounded-xl bg-brand-royal/20 text-brand-royal flex items-center justify-center text-lg font-bold">
+                  <i class="fa-solid fa-award"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-xs text-slate-800">Ranked #1</p>
+                  <p class="text-[10px] text-slate-500">Regional Excellence</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT GLOW ACADEMY -->
+  <section id="about" class="py-20 bg-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 fade-up">
+        <span class="text-brand-royal font-bold text-xs uppercase tracking-widest bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100">About Our Institution</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 mt-4">Fostering Joy, Curiosity &amp; Character</h2>
+        <p class="text-slate-600 mt-4 text-base sm:text-lg">
+          At Glow Academy, education is more than academic output—it is a holistic journey designed to ignite passion, build resilience, and shape tomorrow's ethical leaders.
+        </p>
+      </div>
+
+      <!-- 6 Core Pillars Cards -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Mission -->
+        <div class="bg-slate-50 hover:bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-300 group fade-up">
+          <div class="w-14 h-14 rounded-2xl bg-blue-100 text-brand-royal flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-compass text-brand-royal"></i>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-slate-900 mb-3">Our Mission</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            To empower young learners with exceptional foundation skills, creative problem-solving abilities, and a lifelong thirst for discovery through child-centered instruction.
+          </p>
+        </div>
+
+        <!-- Vision -->
+        <div class="bg-slate-50 hover:bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-amber-200 transition-all duration-300 group fade-up">
+          <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-eye text-amber-600"></i>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-slate-900 mb-3">Our Vision</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            To be recognized globally as a premier benchmark for primary education, cultivating compassionate, innovative, and principled global citizens.
+          </p>
+        </div>
+
+        <!-- Core Values -->
+        <div class="bg-slate-50 hover:bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-emerald-200 transition-all duration-300 group fade-up">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-heart text-emerald-600"></i>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-slate-900 mb-3">Our Core Values</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Integrity, Curiosity, Respect, Collaboration, and Perseverance form the foundational pillars of our daily academic interaction.
+          </p>
+        </div>
+
+        <!-- Safe Environment -->
+        <div class="bg-slate-50 hover:bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-sky-200 transition-all duration-300 group fade-up">
+          <div class="w-14 h-14 rounded-2xl bg-sky-100 text-brand-sky flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-shield-cat text-blue-600"></i>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-slate-900 mb-3">Safe Learning Environment</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Complete physical, digital, and emotional security with 24/7 monitored facilities, anti-bullying protocols, and caring staff guidance.
+          </p>
+        </div>
+
+        <!-- Quality Education -->
+        <div class="bg-slate-50 hover:bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-indigo-200 transition-all duration-300 group fade-up">
+          <div class="w-14 h-14 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-book-bookmark text-indigo-600"></i>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-slate-900 mb-3">Quality Education</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            International curriculum standards blended with innovative hands-on STEM projects, language mastery, and digital literacy.
+          </p>
+        </div>
+
+        <!-- Character Development -->
+        <div class="bg-slate-50 hover:bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-rose-200 transition-all duration-300 group fade-up">
+          <div class="w-14 h-14 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-seedling text-rose-600"></i>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-slate-900 mb-3">Character Development</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Nurturing emotional intelligence, leadership responsibility, empathy, and active community participation from an early age.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ACADEMIC PROGRAMS (Kindergarten & Grade School with Tab Switcher) -->
+  <section id="programs" class="py-20 bg-slate-50 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12 fade-up">
+        <span class="text-brand-green font-bold text-xs uppercase tracking-widest bg-emerald-50 px-4 py-1.5 rounded-full border border-emerald-100">Academic Divisions</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 mt-4">Tailored Curriculums for Every Stage</h2>
+        <p class="text-slate-600 mt-4 text-base sm:text-lg">
+          Explore our structured educational pathways crafted specifically to meet developmental milestones.
+        </p>
+
+        <!-- PROGRAM SWITCHER TABS -->
+        <div class="flex justify-center mt-8">
+          <div class="bg-white p-1.5 rounded-2xl shadow-md border border-slate-200 inline-flex gap-2">
+            <button id="tab-kg" onclick="switchProgramTab('kg')" class="px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300 bg-brand-royal text-white shadow-sm flex items-center gap-2">
+              <i class="fa-solid fa-shapes"></i>
+              <span>Kindergarten (KG)</span>
+            </button>
+            <button id="tab-grade" onclick="switchProgramTab('grade')" class="px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300 text-slate-600 hover:text-brand-royal flex items-center gap-2">
+              <i class="fa-solid fa-school"></i>
+              <span>Grade School (Grades 1-6)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- KINDERGARTEN CONTENT PANEL -->
+      <div id="panel-kg" class="transition-all duration-500">
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+          
+          <div class="lg:col-span-5 fade-up">
+            <div class="relative bg-white p-4 rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
+              <img 
+                src="/src/assets/images/glow_academy_kg_1785395143270.jpg" 
+                alt="Kindergarten Learning Blocks & Graphics" 
+                class="w-full h-auto rounded-2xl object-cover"
+                referrerpolicy="no-referrer"
+              />
+              <div class="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-white">
+                <span class="text-xs font-bold uppercase text-brand-yellow">Ages 3 – 5 Years</span>
+                <h4 class="font-heading text-lg font-bold text-slate-900">Kindergarten Discovery Center</h4>
+                <p class="text-xs text-slate-500 mt-1">Nurturing curiosity, foundational phonics, motor skills, and creative play.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 space-y-6 fade-up">
+            <h3 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900">
+              Joyful &amp; Play-Based Foundation
+            </h3>
+            <p class="text-slate-600 text-base">
+              Our Kindergarten curriculum balances play-based exploration with guided structured activities designed to foster early cognitive, linguistic, and socio-emotional growth.
+            </p>
+
+            <!-- KG Feature Modules Grid -->
+            <div class="grid sm:grid-cols-2 gap-4 pt-2">
+              
+              <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-start gap-4 hover:border-brand-sky transition-colors">
+                <div class="w-10 h-10 rounded-xl bg-blue-100 text-brand-royal flex items-center justify-center flex-shrink-0 text-lg">
+                  <i class="fa-solid fa-puzzle-piece"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm">Play-Based Learning</h4>
+                  <p class="text-xs text-slate-500 mt-0.5">Tactile exploration, blocks, and sensory activity tables.</p>
+                </div>
+              </div>
+
+              <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-start gap-4 hover:border-brand-sky transition-colors">
+                <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0 text-lg">
+                  <i class="fa-solid fa-spell-check"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm">Early Phonics &amp; Reading</h4>
+                  <p class="text-xs text-slate-500 mt-0.5">Interactive storytelling, letter recognition, and speech.</p>
+                </div>
+              </div>
+
+              <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-start gap-4 hover:border-brand-sky transition-colors">
+                <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 text-lg">
+                  <i class="fa-solid fa-pen-nib"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm">Fine Motor &amp; Writing</h4>
+                  <p class="text-xs text-slate-500 mt-0.5">Guided tracing, crayon art, and hand-eye coordination.</p>
+                </div>
+              </div>
+
+              <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-start gap-4 hover:border-brand-sky transition-colors">
+                <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center flex-shrink-0 text-lg">
+                  <i class="fa-solid fa-calculator"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm">Early Number Concepts</h4>
+                  <p class="text-xs text-slate-500 mt-0.5">Counting games, shape matching, and basic patterns.</p>
+                </div>
+              </div>
+
+              <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-start gap-4 hover:border-brand-sky transition-colors">
+                <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center flex-shrink-0 text-lg">
+                  <i class="fa-solid fa-icons"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm">Music, Rhythm &amp; Art</h4>
+                  <p class="text-xs text-slate-500 mt-0.5">Singing, percussive instruments, and painting studio.</p>
+                </div>
+              </div>
+
+              <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-start gap-4 hover:border-brand-sky transition-colors">
+                <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center flex-shrink-0 text-lg">
+                  <i class="fa-solid fa-users text-sky-600"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm">Social &amp; Emotional Dev</h4>
+                  <p class="text-xs text-slate-500 mt-0.5">Sharing, empathy building, self-expression, and manners.</p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="pt-4">
+              <button onclick="openEnrollmentModal('KG Program')" class="bg-brand-royal hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl text-sm shadow-glow-blue transition-all">
+                Apply for Kindergarten
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- GRADE SCHOOL CONTENT PANEL (Hidden initially) -->
+      <div id="panel-grade" class="hidden transition-all duration-500">
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+          
+          <div class="lg:col-span-5 fade-up">
+            <div class="relative bg-white p-4 rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
+              <img 
+                src="/src/assets/images/glow_academy_grade_1785395153961.jpg" 
+                alt="Grade School Science & Math Graphics" 
+                class="w-full h-auto rounded-2xl object-cover"
+                referrerpolicy="no-referrer"
+              />
+              <div class="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-white">
+                <span class="text-xs font-bold uppercase text-brand-royal">Grades 1 through 6</span>
+                <h4 class="font-heading text-lg font-bold text-slate-900">Elementary Academic Excellence</h4>
+                <p class="text-xs text-slate-500 mt-1">Rigorous stem integration, literature, critical thinking, and leadership.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 space-y-6 fade-up">
+            <h3 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900">
+              Rigorous Academic &amp; Leadership Foundation
+            </h3>
+            <p class="text-slate-600 text-base">
+              Our Grade School program equips students with advanced academic fundamentals, scientific inquiry methods, digital proficiency, and collaborative leadership skills.
+            </p>
+
+            <!-- Grade School Subjects Grid -->
+            <div class="grid sm:grid-cols-2 gap-4 pt-2">
+              
+              <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-start gap-4 hover:border-brand-royal transition-colors">
+                <div class="w-10 h-10 rounded-xl bg-blue-100 text-brand-royal flex items-center justify-center flex-shrink-0 text-lg">
+                  <i class="fa-solid fa-square-root-variable"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm">Advanced Mathematics</h4>
+                  <p class="text-xs text-slate-500 mt-0.5">Problem solving, geometry, logic, and mental math.</p>
+                </div>
+              </div>
+
+              <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-start gap-4 hover:border-brand-royal transition-colors">
+                <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0 text-lg">
+                  <i class="fa-solid fa-book"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm">English Language &amp; Literature</h4>
+                  <p class="text-xs text-slate-500 mt-0.5">Grammar, creative essay writing, and vocabulary analysis.</p>
+                </div>
+              </div>
+
+              <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-start gap-4 hover:border-brand-royal transition-colors">
+                <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 text-lg">
+                  <i class="fa-solid fa-flask"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm">Interactive Science</h4>
+                  <p class="text-xs text-slate-500 mt-0.5">Biology, physics principles, and hands-on lab experiments.</p>
+                </div>
+              </div>
+
+              <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-start gap-4 hover:border-brand-royal transition-colors">
+                <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0 text-lg">
+                  <i class="fa-solid fa-earth-americas"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm">Social Studies &amp; World Cultures</h4>
+                  <p class="text-xs text-slate-500 mt-0.5">Global history, geography, civics, and environmental awareness.</p>
+                </div>
+              </div>
+
+              <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-start gap-4 hover:border-brand-royal transition-colors">
+                <div class="w-10 h-10 rounded-xl bg-cyan-100 text-cyan-600 flex items-center justify-center flex-shrink-0 text-lg">
+                  <i class="fa-solid fa-laptop-code"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm">ICT &amp; Digital Literacy</h4>
+                  <p class="text-xs text-slate-500 mt-0.5">Block coding, digital safety, and productivity tools.</p>
+                </div>
+              </div>
+
+              <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-start gap-4 hover:border-brand-royal transition-colors">
+                <div class="w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center flex-shrink-0 text-lg">
+                  <i class="fa-solid fa-volleyball"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm">Physical Education &amp; Arts</h4>
+                  <p class="text-xs text-slate-500 mt-0.5">Sportsmanship, athletics, drama, and visual arts.</p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="pt-4">
+              <button onclick="openEnrollmentModal('Grade School')" class="bg-brand-royal hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl text-sm shadow-glow-blue transition-all">
+                Apply for Grade School
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE GLOW ACADEMY (12 Feature Cards with Search/Filter) -->
+  <section id="why-us" class="py-20 bg-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12 fade-up">
+        <span class="text-brand-yellow font-bold text-xs uppercase tracking-widest bg-amber-50 px-4 py-1.5 rounded-full border border-amber-100 text-amber-700">Why Glow Academy</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 mt-4">12 Reasons Parents Trust Glow</h2>
+        <p class="text-slate-600 mt-4 text-base sm:text-lg">
+          We combine cutting-edge educational infrastructure with a warm, supportive community.
+        </p>
+
+        <!-- Feature Filter Input -->
+        <div class="mt-8 max-w-md mx-auto relative">
+          <input 
+            type="text" 
+            id="feature-search" 
+            oninput="filterFeatures()" 
+            placeholder="Search features (e.g. Lab, Campus, Teachers)..." 
+            class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3 px-5 pl-11 text-sm focus:outline-none focus:border-brand-royal focus:ring-2 focus:ring-blue-100 transition-all"
+          />
+          <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-slate-400 text-sm"></i>
+        </div>
+      </div>
+
+      <!-- 12 FEATURE CARDS GRID -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="features-grid">
+        
+        <!-- 1. Qualified Teachers -->
+        <div class="feature-card bg-slate-50 hover:bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all group fade-up" data-title="Qualified Teachers Faculty Staff Certifications">
+          <div class="w-12 h-12 rounded-2xl bg-blue-100 text-brand-royal flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-chalkboard-user"></i>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Qualified Teachers</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Certified educators with specialized early childhood and elementary teaching degrees.
+          </p>
+        </div>
+
+        <!-- 2. Modern Classrooms -->
+        <div class="feature-card bg-slate-50 hover:bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-sky-200 transition-all group fade-up" data-title="Modern Classrooms Smart Display Air Conditioned">
+          <div class="w-12 h-12 rounded-2xl bg-sky-100 text-brand-sky flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-display"></i>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Modern Classrooms</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Interactive smart boards, ergonomic desks, climate control, and vibrant learning displays.
+          </p>
+        </div>
+
+        <!-- 3. Small Class Sizes -->
+        <div class="feature-card bg-slate-50 hover:bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-amber-200 transition-all group fade-up" data-title="Small Class Sizes Attention Ratio Student Teacher">
+          <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-user-group"></i>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Small Class Sizes</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            1:12 teacher-to-student ratio ensuring personalized attention and tailored mentoring.
+          </p>
+        </div>
+
+        <!-- 4. Digital Learning -->
+        <div class="feature-card bg-slate-50 hover:bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-emerald-200 transition-all group fade-up" data-title="Digital Learning Tablets E-Learning Coding Tech">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-tablet-screen-button"></i>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Digital Learning</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Age-appropriate educational apps, interactive eBooks, and safe online resources.
+          </p>
+        </div>
+
+        <!-- 5. Library -->
+        <div class="feature-card bg-slate-50 hover:bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-indigo-200 transition-all group fade-up" data-title="Library Books Reading Center Storytelling">
+          <div class="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-book-open"></i>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Resource Library</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            10,000+ illustrated children's books, fiction, science journals, and cozy reading nooks.
+          </p>
+        </div>
+
+        <!-- 6. Science Laboratory -->
+        <div class="feature-card bg-slate-50 hover:bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-teal-200 transition-all group fade-up" data-title="Science Laboratory Experiment Microscope Physics Chemistry">
+          <div class="w-12 h-12 rounded-2xl bg-teal-100 text-teal-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-microscope"></i>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Science Laboratory</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Child-safe laboratory equipment for real physics, biology, and chemistry exploration.
+          </p>
+        </div>
+
+        <!-- 7. Computer Lab -->
+        <div class="feature-card bg-slate-50 hover:bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-purple-200 transition-all group fade-up" data-title="Computer Lab IT Robotics Coding Software">
+          <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-desktop"></i>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Computer &amp; Robotics Lab</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            High-speed computers, Lego robotics kits, and introductory coding software.
+          </p>
+        </div>
+
+        <!-- 8. Safe Campus -->
+        <div class="feature-card bg-slate-50 hover:bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-red-200 transition-all group fade-up" data-title="Safe Campus Security CCTV Nurse Health Emergency">
+          <div class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Safe Campus</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Gated security, biometric check-in, 24/7 CCTV surveillance, and on-site registered nurse.
+          </p>
+        </div>
+
+        <!-- 9. Sports Activities -->
+        <div class="feature-card bg-slate-50 hover:bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-orange-200 transition-all group fade-up" data-title="Sports Activities Physical Education Football Basketball Track">
+          <div class="w-12 h-12 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-basketball"></i>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Sports &amp; Athletics</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Outdoor turf field, indoor gymnasium, basketball court, and structured PE coaching.
+          </p>
+        </div>
+
+        <!-- 10. Creative Learning -->
+        <div class="feature-card bg-slate-50 hover:bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-pink-200 transition-all group fade-up" data-title="Creative Learning Art Drama Music Expression Craft">
+          <div class="w-12 h-12 rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-palette"></i>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Creative Arts &amp; Drama</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Dedicated fine arts room, pottery wheels, music ensemble, and school theatrical stage.
+          </p>
+        </div>
+
+        <!-- 11. Strong Academic Results -->
+        <div class="feature-card bg-slate-50 hover:bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-yellow-200 transition-all group fade-up" data-title="Strong Academic Results Awards Olympiad Excellence Performance">
+          <div class="w-12 h-12 rounded-2xl bg-yellow-100 text-amber-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Strong Academic Results</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Top national test percentile scores, STEM Olympiad wins, and high secondary placements.
+          </p>
+        </div>
+
+        <!-- 12. Moral Education -->
+        <div class="feature-card bg-slate-50 hover:bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-emerald-200 transition-all group fade-up" data-title="Moral Education Ethics Values Responsibility Citizenship Community">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-hand-holding-heart"></i>
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Moral &amp; Ethics Focus</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Character building workshops, kindness campaigns, civic responsibility, and eco-clubs.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LEARNING EXPERIENCE -->
+  <section id="experience" class="py-20 bg-slate-900 text-white relative overflow-hidden">
+    
+    <!-- Decorative Glowing Orbs -->
+    <div class="absolute top-0 right-0 w-96 h-96 bg-brand-royal/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-brand-green/15 rounded-full blur-3xl"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 fade-up">
+        <span class="text-brand-yellow font-bold text-xs uppercase tracking-widest bg-amber-500/10 px-4 py-1.5 rounded-full border border-amber-500/20">Learning Methodology</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-white mt-4">An Immersive Learning Experience</h2>
+        <p class="text-slate-300 mt-4 text-base sm:text-lg">
+          We combine proven pedagogical techniques to ensure students stay active, motivated, and intellectually curious.
+        </p>
+      </div>
+
+      <!-- Experience Cards Matrix -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <div class="glass-card-dark p-8 rounded-3xl hover:border-brand-sky/40 transition-all group fade-up">
+          <div class="w-12 h-12 rounded-2xl bg-blue-500/20 text-brand-sky flex items-center justify-center text-xl mb-6">
+            <i class="fa-solid fa-hands-holding-child"></i>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-white mb-3">Hands-on Experiential Learning</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Children retain concepts faster when they build, measure, plant, and experiment rather than passively listening.
+          </p>
+        </div>
+
+        <div class="glass-card-dark p-8 rounded-3xl hover:border-brand-yellow/40 transition-all group fade-up">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-brand-yellow flex items-center justify-center text-xl mb-6">
+            <i class="fa-solid fa-lightbulb"></i>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-white mb-3">Creative Problem Solving</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Open-ended design challenges encourage out-of-the-box thinking and analytical resilience.
+          </p>
+        </div>
+
+        <div class="glass-card-dark p-8 rounded-3xl hover:border-brand-green/40 transition-all group fade-up">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-brand-green flex items-center justify-center text-xl mb-6">
+            <i class="fa-solid fa-gear"></i>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-white mb-3">Integrated STEM Modules</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Science, Technology, Engineering, and Math integrated seamlessly into real-world project scenarios.
+          </p>
+        </div>
+
+        <div class="glass-card-dark p-8 rounded-3xl hover:border-purple-400/40 transition-all group fade-up">
+          <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl mb-6">
+            <i class="fa-solid fa-book-journal-whills"></i>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-white mb-3">Vibrant Reading Culture</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Daily read-aloud sessions, author visits, and book clubs ignite a lifelong love for literature.
+          </p>
+        </div>
+
+        <div class="glass-card-dark p-8 rounded-3xl hover:border-sky-400/40 transition-all group fade-up">
+          <div class="w-12 h-12 rounded-2xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-xl mb-6">
+            <i class="fa-solid fa-people-group"></i>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-white mb-3">Teamwork &amp; Collaboration</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Group investigations build communication, active listening, delegation, and mutual appreciation.
+          </p>
+        </div>
+
+        <div class="glass-card-dark p-8 rounded-3xl hover:border-rose-400/40 transition-all group fade-up">
+          <div class="w-12 h-12 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-xl mb-6">
+            <i class="fa-solid fa-rocket"></i>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-white mb-3">Innovation &amp; Curiosity</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Inquiry-driven questioning encourages children to ask "why" and explore answers through research.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CAMPUS FACILITIES SECTION (Illustrated Cards Only) -->
+  <section id="facilities" class="py-20 bg-slate-50 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 fade-up">
+        <span class="text-brand-royal font-bold text-xs uppercase tracking-widest bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100">World-Class Infrastructure</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 mt-4">Campus Facilities Built for Safety &amp; Growth</h2>
+        <p class="text-slate-600 mt-4 text-base sm:text-lg">
+          Designed specifically to meet safety protocols while providing stimulating environments for learning and play.
+        </p>
+      </div>
+
+      <!-- Facilities Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Smart Classrooms -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-xl transition-all group fade-up">
+          <div class="h-44 bg-gradient-to-tr from-blue-600 to-brand-sky p-6 flex flex-col justify-between relative overflow-hidden">
+            <div class="w-12 h-12 rounded-2xl bg-white/20 text-white flex items-center justify-center text-2xl backdrop-blur-md">
+              <i class="fa-solid fa-chalkboard"></i>
+            </div>
+            <span class="text-xs font-bold text-white uppercase tracking-wider bg-black/20 backdrop-blur-md self-start px-3 py-1 rounded-full">Interactive</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Smart Classrooms</h3>
+            <p class="text-slate-600 text-xs leading-relaxed">
+              Equipped with digital touch displays, ergonomic furniture, air purifiers, and ample natural lighting.
+            </p>
+          </div>
+        </div>
+
+        <!-- Science Lab -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-xl transition-all group fade-up">
+          <div class="h-44 bg-gradient-to-tr from-emerald-600 to-teal-400 p-6 flex flex-col justify-between relative overflow-hidden">
+            <div class="w-12 h-12 rounded-2xl bg-white/20 text-white flex items-center justify-center text-2xl backdrop-blur-md">
+              <i class="fa-solid fa-atom"></i>
+            </div>
+            <span class="text-xs font-bold text-white uppercase tracking-wider bg-black/20 backdrop-blur-md self-start px-3 py-1 rounded-full">Discovery</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Science Discovery Lab</h3>
+            <p class="text-slate-600 text-xs leading-relaxed">
+              Child-safe microscopes, plant observation stations, and elementary chemistry kits.
+            </p>
+          </div>
+        </div>
+
+        <!-- Computer Lab -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-xl transition-all group fade-up">
+          <div class="h-44 bg-gradient-to-tr from-purple-600 to-indigo-400 p-6 flex flex-col justify-between relative overflow-hidden">
+            <div class="w-12 h-12 rounded-2xl bg-white/20 text-white flex items-center justify-center text-2xl backdrop-blur-md">
+              <i class="fa-solid fa-laptop"></i>
+            </div>
+            <span class="text-xs font-bold text-white uppercase tracking-wider bg-black/20 backdrop-blur-md self-start px-3 py-1 rounded-full">Technology</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Computer &amp; Coding Suite</h3>
+            <p class="text-slate-600 text-xs leading-relaxed">
+              Modern computer workstations preloaded with educational software and coding logic suites.
+            </p>
+          </div>
+        </div>
+
+        <!-- School Bus (With Generated Illustration Image) -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-xl transition-all group fade-up">
+          <div class="h-44 relative overflow-hidden">
+            <img 
+              src="/src/assets/images/glow_academy_bus_1785395165225.jpg" 
+              alt="Glow Academy Bus Illustration" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              referrerpolicy="no-referrer"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">GPS School Bus Fleet</h3>
+            <p class="text-slate-600 text-xs leading-relaxed">
+              Air-conditioned buses with real-time parent GPS tracking, seatbelts, and trained bus attendants.
+            </p>
+          </div>
+        </div>
+
+        <!-- Library -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-xl transition-all group fade-up">
+          <div class="h-44 bg-gradient-to-tr from-amber-500 to-yellow-400 p-6 flex flex-col justify-between relative overflow-hidden">
+            <div class="w-12 h-12 rounded-2xl bg-white/20 text-white flex items-center justify-center text-2xl backdrop-blur-md">
+              <i class="fa-solid fa-book-open"></i>
+            </div>
+            <span class="text-xs font-bold text-slate-900 uppercase tracking-wider bg-white/60 backdrop-blur-md self-start px-3 py-1 rounded-full">Resource</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Junior Reading Haven</h3>
+            <p class="text-slate-600 text-xs leading-relaxed">
+              Curated fiction, reference encyclopedias, digital story stations, and colorful beanbags.
+            </p>
+          </div>
+        </div>
+
+        <!-- Playground -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-xl transition-all group fade-up">
+          <div class="h-44 bg-gradient-to-tr from-rose-500 to-pink-400 p-6 flex flex-col justify-between relative overflow-hidden">
+            <div class="w-12 h-12 rounded-2xl bg-white/20 text-white flex items-center justify-center text-2xl backdrop-blur-md">
+              <i class="fa-solid fa-icons"></i>
+            </div>
+            <span class="text-xs font-bold text-white uppercase tracking-wider bg-black/20 backdrop-blur-md self-start px-3 py-1 rounded-full">Outdoors</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Safety Soft-Play Park</h3>
+            <p class="text-slate-600 text-xs leading-relaxed">
+              Impact-absorbing rubber flooring, climbing domes, slides, and shaded sandbox pavilions.
+            </p>
+          </div>
+        </div>
+
+        <!-- School Garden -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-xl transition-all group fade-up">
+          <div class="h-44 bg-gradient-to-tr from-green-600 to-emerald-400 p-6 flex flex-col justify-between relative overflow-hidden">
+            <div class="w-12 h-12 rounded-2xl bg-white/20 text-white flex items-center justify-center text-2xl backdrop-blur-md">
+              <i class="fa-solid fa-tree"></i>
+            </div>
+            <span class="text-xs font-bold text-white uppercase tracking-wider bg-black/20 backdrop-blur-md self-start px-3 py-1 rounded-full">Nature</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Botanic Botanical Garden</h3>
+            <p class="text-slate-600 text-xs leading-relaxed">
+              Student vegetable patches, butterfly garden, and composting stations for practical biology.
+            </p>
+          </div>
+        </div>
+
+        <!-- Cafeteria -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-xl transition-all group fade-up">
+          <div class="h-44 bg-gradient-to-tr from-orange-500 to-amber-400 p-6 flex flex-col justify-between relative overflow-hidden">
+            <div class="w-12 h-12 rounded-2xl bg-white/20 text-white flex items-center justify-center text-2xl backdrop-blur-md">
+              <i class="fa-solid fa-apple-whole"></i>
+            </div>
+            <span class="text-xs font-bold text-slate-900 uppercase tracking-wider bg-white/60 backdrop-blur-md self-start px-3 py-1 rounded-full">Nutrition</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Organic Dining Hall</h3>
+            <p class="text-slate-600 text-xs leading-relaxed">
+              Chef-prepared organic meals, allergy-conscious menus, and clean dining facilities.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS & STATISTICS (With Animated Counters) -->
+  <section id="achievements" class="py-20 bg-gradient-to-r from-brand-royal via-blue-700 to-blue-900 text-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 fade-up">
+        <span class="text-brand-yellow font-bold text-xs uppercase tracking-widest bg-amber-500/20 px-4 py-1.5 rounded-full border border-amber-400/30">Milestones of Excellence</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-white mt-4">Glow Academy by the Numbers</h2>
+        <p class="text-blue-100 mt-4 text-base sm:text-lg">
+          Our track record reflects our ongoing commitment to child growth and educational quality.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-5 gap-8 text-center" id="counters-section">
+        
+        <!-- Counter 1 -->
+        <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/15 fade-up">
+          <div class="w-12 h-12 rounded-2xl bg-brand-yellow text-slate-900 mx-auto flex items-center justify-center text-xl mb-4 shadow-lg">
+            <i class="fa-solid fa-face-smile-beam"></i>
+          </div>
+          <div class="font-heading text-4xl sm:text-5xl font-bold text-white tracking-tight counter-value" data-target="850">0</div>
+          <p class="text-xs sm:text-sm font-semibold text-blue-200 mt-2">Happy Students</p>
+        </div>
+
+        <!-- Counter 2 -->
+        <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/15 fade-up">
+          <div class="w-12 h-12 rounded-2xl bg-brand-sky text-slate-900 mx-auto flex items-center justify-center text-xl mb-4 shadow-lg">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="font-heading text-4xl sm:text-5xl font-bold text-white tracking-tight counter-value" data-target="45">0</div>
+          <p class="text-xs sm:text-sm font-semibold text-blue-200 mt-2">Experienced Teachers</p>
+        </div>
+
+        <!-- Counter 3 -->
+        <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/15 fade-up">
+          <div class="w-12 h-12 rounded-2xl bg-brand-green text-slate-900 mx-auto flex items-center justify-center text-xl mb-4 shadow-lg">
+            <i class="fa-solid fa-calendar-check"></i>
+          </div>
+          <div class="font-heading text-4xl sm:text-5xl font-bold text-white tracking-tight counter-value" data-target="15">0</div>
+          <p class="text-xs sm:text-sm font-semibold text-blue-200 mt-2">Years of Excellence</p>
+        </div>
+
+        <!-- Counter 4 -->
+        <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/15 fade-up">
+          <div class="w-12 h-12 rounded-2xl bg-amber-400 text-slate-900 mx-auto flex items-center justify-center text-xl mb-4 shadow-lg">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+          <div class="font-heading text-4xl sm:text-5xl font-bold text-white tracking-tight counter-value" data-target="28">0</div>
+          <p class="text-xs sm:text-sm font-semibold text-blue-200 mt-2">Academic Awards</p>
+        </div>
+
+        <!-- Counter 5 -->
+        <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/15 col-span-2 lg:col-span-1 fade-up">
+          <div class="w-12 h-12 rounded-2xl bg-purple-400 text-slate-900 mx-auto flex items-center justify-center text-xl mb-4 shadow-lg">
+            <i class="fa-solid fa-chess-knight"></i>
+          </div>
+          <div class="font-heading text-4xl sm:text-5xl font-bold text-white tracking-tight counter-value" data-target="32">0</div>
+          <p class="text-xs sm:text-sm font-semibold text-blue-200 mt-2">Clubs &amp; Activities</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS (Parent Reviews - strictly NO human photos!) -->
+  <section class="py-20 bg-slate-50 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 fade-up">
+        <span class="text-brand-green font-bold text-xs uppercase tracking-widest bg-emerald-50 px-4 py-1.5 rounded-full border border-emerald-100">Parent Testimonials</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 mt-4">What Our Community Says</h2>
+        <p class="text-slate-600 mt-4 text-base sm:text-lg">
+          Read genuine feedback from parents whose children thrive at Glow Academy.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        
+        <!-- Review 1 -->
+        <div class="bg-white p-8 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl transition-all relative flex flex-col justify-between fade-up">
+          <div>
+            <div class="flex items-center gap-1 text-brand-yellow text-sm mb-4">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-slate-600 text-sm leading-relaxed italic">
+              "Enrolling our daughter in Glow Academy's Kindergarten was the best decision we made. She comes home excited every day to share what she learned about science and music!"
+            </p>
+          </div>
+          <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
+            <div>
+              <p class="font-bold text-slate-900 text-sm">Parent of KG Student</p>
+              <p class="text-xs text-slate-400">Class of 2025</p>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-blue-100 text-brand-royal flex items-center justify-center font-bold text-sm">
+              <i class="fa-solid fa-quote-right"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="bg-white p-8 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl transition-all relative flex flex-col justify-between fade-up">
+          <div>
+            <div class="flex items-center gap-1 text-brand-yellow text-sm mb-4">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-slate-600 text-sm leading-relaxed italic">
+              "The Grade School STEM program and computer lab are outstanding. My son went from struggling with math to winning the regional elementary geometry trophy!"
+            </p>
+          </div>
+          <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
+            <div>
+              <p class="font-bold text-slate-900 text-sm">Parent of Grade 4 Student</p>
+              <p class="text-xs text-slate-400">Class of 2024</p>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm">
+              <i class="fa-solid fa-quote-right"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="bg-white p-8 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl transition-all relative flex flex-col justify-between fade-up">
+          <div>
+            <div class="flex items-center gap-1 text-brand-yellow text-sm mb-4">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-slate-600 text-sm leading-relaxed italic">
+              "Safety, communication, and warmth—Glow Academy excels in all three. The teachers know every child by name and care deeply about their moral development."
+            </p>
+          </div>
+          <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
+            <div>
+              <p class="font-bold text-slate-900 text-sm">Parent of Grade 2 &amp; KG Students</p>
+              <p class="text-xs text-slate-400">Class of 2026</p>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-sm">
+              <i class="fa-solid fa-quote-right"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ADMISSIONS & TUITION CALCULATOR SECTION -->
+  <section id="admissions" class="py-20 bg-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 fade-up">
+        <span class="text-brand-royal font-bold text-xs uppercase tracking-widest bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100">Enrollment &amp; Process</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 mt-4">Simple 4-Step Admission Journey</h2>
+        <p class="text-slate-600 mt-4 text-base sm:text-lg">
+          We welcome applications year-round. Follow our simple, transparent enrollment procedure.
+        </p>
+      </div>
+
+      <!-- 4 STEPS TIMELINE -->
+      <div class="grid md:grid-cols-4 gap-6 mb-16">
+        
+        <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100 relative group fade-up">
+          <div class="w-10 h-10 rounded-2xl bg-brand-royal text-white font-bold flex items-center justify-center text-base mb-4 shadow-glow-blue">
+            1
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Online Application</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Fill out our quick digital application form with child and guardian details.
+          </p>
+        </div>
+
+        <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100 relative group fade-up">
+          <div class="w-10 h-10 rounded-2xl bg-brand-sky text-slate-900 font-bold flex items-center justify-center text-base mb-4 shadow-sm">
+            2
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Campus Tour &amp; Visit</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Schedule an interactive guided campus tour and brief friendly child assessment.
+          </p>
+        </div>
+
+        <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100 relative group fade-up">
+          <div class="w-10 h-10 rounded-2xl bg-brand-yellow text-slate-900 font-bold flex items-center justify-center text-base mb-4 shadow-sm">
+            3
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Document Submission</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Provide birth certificate, previous school records, and immunization health logs.
+          </p>
+        </div>
+
+        <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100 relative group fade-up">
+          <div class="w-10 h-10 rounded-2xl bg-brand-green text-slate-900 font-bold flex items-center justify-center text-base mb-4 shadow-sm">
+            4
+          </div>
+          <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Welcome &amp; Orientation</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Receive welcome kit, uniform guide, bus schedule, and join class orientation.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- INTERACTIVE TUITION & ESTIMATOR WIDGET -->
+      <div class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white p-8 md:p-12 rounded-3xl shadow-2xl relative overflow-hidden fade-up">
+        <div class="grid lg:grid-cols-12 gap-8 items-center relative z-10">
+          
+          <div class="lg:col-span-6 space-y-4">
+            <span class="text-brand-yellow font-bold text-xs uppercase tracking-widest bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">Interactive Fee Estimator</span>
+            <h3 class="font-heading text-2xl sm:text-3xl font-bold text-white">Transparent Tuition &amp; Optional Services</h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Estimate your academic fees based on division and optional add-on services such as transportation, meal plans, and after-school clubs.
+            </p>
+
+            <div class="space-y-4 pt-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-2">Select Program:</label>
+                <select id="calc-program" onchange="calculateTuition()" class="w-full bg-slate-800 border border-slate-700 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-brand-sky">
+                  <option value="4800">Kindergarten (KG) — $4,800 / year</option>
+                  <option value="5600">Grade School (Grades 1-3) — $5,600 / year</option>
+                  <option value="6200">Grade School (Grades 4-6) — $6,200 / year</option>
+                </select>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-4">
+                <label class="flex items-center gap-3 p-3 bg-slate-800/80 rounded-xl border border-slate-700 cursor-pointer">
+                  <input type="checkbox" id="calc-bus" onchange="calculateTuition()" class="w-4 h-4 rounded text-brand-royal focus:ring-brand-sky">
+                  <span class="text-xs text-slate-200">GPS Bus Fleet (+$800/yr)</span>
+                </label>
+
+                <label class="flex items-center gap-3 p-3 bg-slate-800/80 rounded-xl border border-slate-700 cursor-pointer">
+                  <input type="checkbox" id="calc-food" onchange="calculateTuition()" class="w-4 h-4 rounded text-brand-royal focus:ring-brand-sky">
+                  <span class="text-xs text-slate-200">Organic Meals (+$600/yr)</span>
+                </label>
+
+                <label class="flex items-center gap-3 p-3 bg-slate-800/80 rounded-xl border border-slate-700 cursor-pointer sm:col-span-2">
+                  <input type="checkbox" id="calc-clubs" onchange="calculateTuition()" class="w-4 h-4 rounded text-brand-royal focus:ring-brand-sky">
+                  <span class="text-xs text-slate-200">After-School STEM &amp; Arts Clubs (+$400/yr)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-6 bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/15 text-center flex flex-col items-center justify-center space-y-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-200">Estimated Annual Total</span>
+            <div id="tuition-display" class="font-heading text-5xl font-bold text-brand-yellow">$4,800</div>
+            <p class="text-xs text-slate-300">Includes learning materials, lab access, sports gear &amp; student insurance.</p>
+            <button onclick="openEnrollmentModal()" class="w-full bg-brand-royal hover:bg-blue-600 text-white font-bold py-4 rounded-xl shadow-glow-blue transition-all">
+              Start Admission Application
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ ACCORDION -->
+  <section id="faq" class="py-20 bg-slate-50 relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-16 fade-up">
+        <span class="text-brand-sky font-bold text-xs uppercase tracking-widest bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100">Got Questions?</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 mt-4">Frequently Asked Questions</h2>
+        <p class="text-slate-600 mt-4 text-base">
+          Find answers to common questions about admissions, fees, security, and daily schedules.
+        </p>
+      </div>
+
+      <!-- FAQ Accordion List -->
+      <div class="space-y-4" id="faq-container">
+        
+        <!-- Q1 -->
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm fade-up">
+          <button onclick="toggleFaq(this)" class="w-full p-6 text-left font-heading font-bold text-lg text-slate-900 flex justify-between items-center gap-4 hover:text-brand-royal transition-colors">
+            <span>What are the minimum admission ages for Kindergarten and Grade 1?</span>
+            <i class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300 text-sm"></i>
+          </button>
+          <div class="px-6 pb-6 text-slate-600 text-sm leading-relaxed hidden">
+            Kindergarten children must turn 3 years old by September 1st of the entry academic year. For Grade 1 entry, children must be 6 years old by September 1st.
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm fade-up">
+          <button onclick="toggleFaq(this)" class="w-full p-6 text-left font-heading font-bold text-lg text-slate-900 flex justify-between items-center gap-4 hover:text-brand-royal transition-colors">
+            <span>What are the school operating hours?</span>
+            <i class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300 text-sm"></i>
+          </button>
+          <div class="px-6 pb-6 text-slate-600 text-sm leading-relaxed hidden">
+            Kindergarten operates from 8:30 AM to 1:30 PM. Grade School operates from 8:00 AM to 3:00 PM. Optional after-school clubs run until 4:30 PM.
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm fade-up">
+          <button onclick="toggleFaq(this)" class="w-full p-6 text-left font-heading font-bold text-lg text-slate-900 flex justify-between items-center gap-4 hover:text-brand-royal transition-colors">
+            <span>Is school bus transportation available in all city areas?</span>
+            <i class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300 text-sm"></i>
+          </button>
+          <div class="px-6 pb-6 text-slate-600 text-sm leading-relaxed hidden">
+            Yes, our fleet of air-conditioned GPS-tracked buses covers a 25-kilometer radius. Each bus is staffed with a certified bus supervisor and seatbelts for every child.
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm fade-up">
+          <button onclick="toggleFaq(this)" class="w-full p-6 text-left font-heading font-bold text-lg text-slate-900 flex justify-between items-center gap-4 hover:text-brand-royal transition-colors">
+            <span>Are school uniforms mandatory?</span>
+            <i class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300 text-sm"></i>
+          </button>
+          <div class="px-6 pb-6 text-slate-600 text-sm leading-relaxed hidden">
+            Yes, standard Glow Academy uniforms foster school pride and equality. Uniform kits (polo shirts, sweaters, sports wear) are available at our campus shop.
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm fade-up">
+          <button onclick="toggleFaq(this)" class="w-full p-6 text-left font-heading font-bold text-lg text-slate-900 flex justify-between items-center gap-4 hover:text-brand-royal transition-colors">
+            <span>How are dietary restrictions and food allergies handled?</span>
+            <i class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300 text-sm"></i>
+          </button>
+          <div class="px-6 pb-6 text-slate-600 text-sm leading-relaxed hidden">
+            Our cafeteria is 100% nut-free. Individual dietary profiles (vegetarian, gluten-free, halal) are strictly recorded and managed by our registered dietitian.
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm fade-up">
+          <button onclick="toggleFaq(this)" class="w-full p-6 text-left font-heading font-bold text-lg text-slate-900 flex justify-between items-center gap-4 hover:text-brand-royal transition-colors">
+            <span>What extracurricular activities are offered?</span>
+            <i class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300 text-sm"></i>
+          </button>
+          <div class="px-6 pb-6 text-slate-600 text-sm leading-relaxed hidden">
+            We offer 32+ clubs including Lego Robotics, Junior Chess, Ballet, Taekwondo, Choir, Swimming, Drama, Gardening, and Astronomy.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION & MAP -->
+  <section id="contact" class="py-20 bg-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        
+        <!-- Contact Info -->
+        <div class="lg:col-span-5 space-y-8 fade-up">
+          <div>
+            <span class="text-brand-royal font-bold text-xs uppercase tracking-widest bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100">Get in Touch</span>
+            <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 mt-4">We'd Love to Welcome You</h2>
+            <p class="text-slate-600 mt-3 text-sm sm:text-base">
+              Have questions or want to schedule a personalized campus tour? Contact our friendly admissions office today.
+            </p>
+          </div>
+
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-blue-100 text-brand-royal flex items-center justify-center text-xl flex-shrink-0">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 text-sm">Campus Address</h4>
+                <p class="text-xs text-slate-600 mt-0.5">124 Sunshine Boulevard, Education Park, City District</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl flex-shrink-0">
+                <i class="fa-solid fa-phone"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 text-sm">Phone Numbers</h4>
+                <p class="text-xs text-slate-600 mt-0.5">+1 (800) 555-GLOW / +1 (800) 555-4569</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl flex-shrink-0">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 text-sm">Email Admissions</h4>
+                <p class="text-xs text-slate-600 mt-0.5">admissions@glowacademy.edu</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl flex-shrink-0">
+                <i class="fa-solid fa-clock"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 text-sm">Office Hours</h4>
+                <p class="text-xs text-slate-600 mt-0.5">Monday – Friday: 7:30 AM – 4:30 PM | Saturday: 8:00 AM – 12:00 PM</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Graphic Map Placeholder -->
+          <div class="bg-slate-100 rounded-3xl p-6 border border-slate-200 relative overflow-hidden">
+            <div class="flex items-center justify-between mb-4">
+              <span class="font-bold text-xs text-slate-800 uppercase tracking-wider"><i class="fa-solid fa-map-location-dot text-brand-royal mr-1"></i> Interactive Campus Map</span>
+              <span class="text-[10px] bg-brand-green/20 text-emerald-800 font-bold px-2.5 py-1 rounded-full">Gate 1 &amp; Main Entrance</span>
+            </div>
+            <div class="h-40 rounded-2xl bg-slate-200 flex flex-col items-center justify-center text-center p-4 border border-dashed border-slate-300">
+              <i class="fa-solid fa-compass-drafting text-3xl text-brand-royal mb-2"></i>
+              <p class="text-xs font-bold text-slate-700">124 Sunshine Blvd Education Park</p>
+              <p class="text-[10px] text-slate-500">Visitor Parking Available at South Gate</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Contact Form -->
+        <div class="lg:col-span-7 bg-slate-50 p-8 sm:p-10 rounded-3xl border border-slate-200/80 shadow-sm fade-up">
+          <h3 class="font-heading text-2xl font-bold text-slate-900 mb-2">Send an Inquiry</h3>
+          <p class="text-slate-600 text-xs sm:text-sm mb-6">Our admissions counselors typically respond within 24 business hours.</p>
+
+          <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Parent / Guardian Name *</label>
+                <input type="text" required placeholder="e.g. Sarah Jenkins" class="w-full bg-white border border-slate-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-brand-royal focus:ring-2 focus:ring-blue-100">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Email Address *</label>
+                <input type="email" required placeholder="e.g. sarah@example.com" class="w-full bg-white border border-slate-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-brand-royal focus:ring-2 focus:ring-blue-100">
+              </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Phone Number *</label>
+                <input type="tel" required placeholder="e.g. (555) 000-1234" class="w-full bg-white border border-slate-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-brand-royal focus:ring-2 focus:ring-blue-100">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Program of Interest</label>
+                <select class="w-full bg-white border border-slate-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-brand-royal focus:ring-2 focus:ring-blue-100">
+                  <option value="kg">Kindergarten (KG)</option>
+                  <option value="grade-lower">Grade School (Lower Primary)</option>
+                  <option value="grade-upper">Grade School (Upper Primary)</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Message / Question</label>
+              <textarea rows="4" placeholder="How can we help your child's educational journey?" class="w-full bg-white border border-slate-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-brand-royal focus:ring-2 focus:ring-blue-100"></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-brand-royal hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-glow-blue transition-all">
+              Send Message
+            </button>
+          </form>
+
+          <!-- Success State Notification -->
+          <div id="contact-success" class="hidden mt-4 p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-emerald-800 text-xs sm:text-sm font-semibold text-center flex items-center justify-center gap-2">
+            <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
+            <span>Thank you! Your message has been received. Our team will contact you shortly.</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 pb-12 border-b border-slate-800">
+        
+        <!-- Col 1: Brand Info -->
+        <div class="col-span-2 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-brand-royal text-white flex items-center justify-center text-xl font-bold">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <span class="font-heading text-2xl font-bold text-white">Glow<span class="text-brand-yellow">Academy</span></span>
+          </div>
+          <p class="text-xs text-slate-400 max-w-sm leading-relaxed">
+            Where Bright Minds Begin to Shine. Empowering Kindergarten and Grade School children through inspiring, safe, and world-class educational practices.
+          </p>
+          <div class="flex items-center gap-3 pt-2">
+            <a href="#" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-brand-royal text-white flex items-center justify-center text-sm transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-brand-sky text-slate-900 flex items-center justify-center text-sm transition-colors"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-pink-600 text-white flex items-center justify-center text-sm transition-colors"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-red-600 text-white flex items-center justify-center text-sm transition-colors"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div>
+          <h4 class="font-heading font-bold text-white text-sm mb-4">Quick Links</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#about" class="hover:text-white transition-colors">About Glow</a></li>
+            <li><a href="#why-us" class="hover:text-white transition-colors">12 Reasons Why</a></li>
+            <li><a href="#experience" class="hover:text-white transition-colors">Methodology</a></li>
+            <li><a href="#facilities" class="hover:text-white transition-colors">Campus Facilities</a></li>
+            <li><a href="#achievements" class="hover:text-white transition-colors">Milestones</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Programs -->
+        <div>
+          <h4 class="font-heading font-bold text-white text-sm mb-4">Programs</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#programs" class="hover:text-white transition-colors">Kindergarten (KG)</a></li>
+            <li><a href="#programs" class="hover:text-white transition-colors">Lower Grade School</a></li>
+            <li><a href="#programs" class="hover:text-white transition-colors">Upper Grade School</a></li>
+            <li><a href="#programs" class="hover:text-white transition-colors">STEM &amp; Robotics</a></li>
+            <li><a href="#admissions" class="hover:text-white transition-colors">Tuition Calculator</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contact -->
+        <div>
+          <h4 class="font-heading font-bold text-white text-sm mb-4">Contact Info</h4>
+          <ul class="space-y-2 text-xs text-slate-400">
+            <li><i class="fa-solid fa-location-dot text-brand-royal mr-2"></i>124 Sunshine Blvd</li>
+            <li><i class="fa-solid fa-phone text-brand-green mr-2"></i>+1 (800) 555-GLOW</li>
+            <li><i class="fa-solid fa-envelope text-brand-yellow mr-2"></i>info@glowacademy.edu</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <p>© 2026 Glow Academy. All rights reserved. Self-contained single-file application.</p>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-slate-400">Privacy Policy</a>
+          <a href="#" class="hover:text-slate-400">Terms of Service</a>
+          <a href="#" class="hover:text-slate-400">Accessibility</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ENROLLMENT APPLICATION WIZARD MODAL -->
+  <div id="enroll-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop bg-slate-900/60 backdrop-blur-md">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl modal-content border border-slate-100 relative">
+      
+      <!-- Close Button -->
+      <button onclick="closeEnrollmentModal()" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 rounded-2xl bg-brand-royal text-white mx-auto flex items-center justify-center text-xl mb-3 shadow-glow-blue">
+          <i class="fa-solid fa-file-pen"></i>
+        </div>
+        <h3 class="font-heading text-2xl font-bold text-slate-900">Student Enrollment Application</h3>
+        <p class="text-xs text-slate-500 mt-1">Academic Year 2026-2027 Admission Form</p>
+      </div>
+
+      <form id="enrollment-wizard" onsubmit="handleEnrollmentSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Child's Full Name *</label>
+          <input type="text" required placeholder="e.g. Liam Parker" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-brand-royal">
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Date of Birth *</label>
+            <input type="date" required class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-brand-royal">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Target Division *</label>
+            <select id="modal-program-select" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-brand-royal">
+              <option value="kg">Kindergarten (KG)</option>
+              <option value="g1">Grade 1</option>
+              <option value="g2">Grade 2</option>
+              <option value="g3">Grade 3</option>
+              <option value="g4">Grade 4</option>
+              <option value="g5">Grade 5</option>
+              <option value="g6">Grade 6</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Parent/Guardian Name *</label>
+            <input type="text" required placeholder="e.g. Amanda Parker" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-brand-royal">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Phone Number *</label>
+            <input type="tel" required placeholder="(555) 000-1234" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-brand-royal">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Email Address *</label>
+          <input type="email" required placeholder="amanda@example.com" class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-brand-royal">
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" class="w-full bg-brand-royal hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-glow-blue transition-all">
+            Submit Application
+          </button>
+        </div>
+      </form>
+
+      <div id="enroll-success" class="hidden text-center py-6 space-y-4">
+        <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h4 class="font-heading text-xl font-bold text-slate-900">Application Submitted!</h4>
+        <p class="text-xs text-slate-600">Reference Number: <span class="font-bold text-brand-royal">GLOW-2026-8942</span></p>
+        <p class="text-xs text-slate-500 leading-relaxed">We have sent a confirmation email to your inbox. Our admissions team will reach out within 24 hours to schedule your campus tour.</p>
+        <button onclick="closeEnrollmentModal()" class="bg-slate-900 text-white font-bold px-6 py-2.5 rounded-xl text-xs">Close</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC (Self-Contained Vanilla ES6) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initScrollAnimations();
+      initCountersObserver();
+      calculateTuition();
+    });
+
+    /* Mobile Menu Toggle */
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const icon = document.getElementById('menu-icon');
+      if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-xmark');
+      } else {
+        menu.classList.add('hidden');
+        icon.classList.remove('fa-xmark');
+        icon.classList.add('fa-bars');
+      }
+    }
+
+    /* Program Tab Switcher */
+    function switchProgramTab(tab) {
+      const tabKg = document.getElementById('tab-kg');
+      const tabGrade = document.getElementById('tab-grade');
+      const panelKg = document.getElementById('panel-kg');
+      const panelGrade = document.getElementById('panel-grade');
+
+      if (tab === 'kg') {
+        tabKg.className = 'px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300 bg-brand-royal text-white shadow-sm flex items-center gap-2';
+        tabGrade.className = 'px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300 text-slate-600 hover:text-brand-royal flex items-center gap-2';
+        panelKg.classList.remove('hidden');
+        panelGrade.classList.add('hidden');
+      } else {
+        tabGrade.className = 'px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300 bg-brand-royal text-white shadow-sm flex items-center gap-2';
+        tabKg.className = 'px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300 text-slate-600 hover:text-brand-royal flex items-center gap-2';
+        panelGrade.classList.remove('hidden');
+        panelKg.classList.add('hidden');
+      }
+    }
+
+    /* Feature Cards Filter */
+    function filterFeatures() {
+      const query = document.getElementById('feature-search').value.toLowerCase();
+      const cards = document.querySelectorAll('.feature-card');
+
+      cards.forEach(card => {
+        const titleData = card.getAttribute('data-title').toLowerCase();
+        if (titleData.includes(query)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    /* Tuition Calculator */
+    function calculateTuition() {
+      const programBase = parseInt(document.getElementById('calc-program').value);
+      const busCost = document.getElementById('calc-bus').checked ? 800 : 0;
+      const foodCost = document.getElementById('calc-food').checked ? 600 : 0;
+      const clubCost = document.getElementById('calc-clubs').checked ? 400 : 0;
+
+      const total = programBase + busCost + foodCost + clubCost;
+      document.getElementById('tuition-display').innerText = '$' + total.toLocaleString();
+    }
+
+    /* FAQ Accordion Toggle */
+    function toggleFaq(button) {
+      const answer = button.nextElementSibling;
+      const icon = button.querySelector('i');
+
+      if (answer.classList.contains('hidden')) {
+        answer.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      } else {
+        answer.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    /* Contact Form Submission */
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      document.getElementById('contact-form').reset();
+      const successEl = document.getElementById('contact-success');
+      successEl.classList.remove('hidden');
+      setTimeout(() => {
+        successEl.classList.add('hidden');
+      }, 6000);
+    }
+
+    /* Enrollment Modal Wizard */
+    function openEnrollmentModal(programName) {
+      const modal = document.getElementById('enroll-modal');
+      const select = document.getElementById('modal-program-select');
+      
+      if (programName && programName.includes('KG')) {
+        select.value = 'kg';
+      } else if (programName && programName.includes('Grade')) {
+        select.value = 'g1';
+      }
+      
+      modal.classList.add('active');
+    }
+
+    function closeEnrollmentModal() {
+      const modal = document.getElementById('enroll-modal');
+      modal.classList.remove('active');
+      setTimeout(() => {
+        document.getElementById('enrollment-wizard').classList.remove('hidden');
+        document.getElementById('enroll-success').classList.add('hidden');
+      }, 300);
+    }
+
+    function handleEnrollmentSubmit(e) {
+      e.preventDefault();
+      document.getElementById('enrollment-wizard').classList.add('hidden');
+      document.getElementById('enroll-success').classList.remove('hidden');
+    }
+
+    /* Scroll Trigger Animations */
+    function initScrollAnimations() {
+      const fadeElements = document.querySelectorAll('.fade-up');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      fadeElements.forEach(el => observer.observe(el));
+    }
+
+    /* Animated Counter Observer */
+    function initCountersObserver() {
+      const counters = document.querySelectorAll('.counter-value');
+      let triggered = false;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !triggered) {
+            triggered = true;
+            counters.forEach(counter => {
+              const target = parseInt(counter.getAttribute('data-target'));
+              let count = 0;
+              const step = Math.ceil(target / 40);
+              const timer = setInterval(() => {
+                count += step;
+                if (count >= target) {
+                  counter.innerText = target + '+';
+                  clearInterval(timer);
+                } else {
+                  counter.innerText = count + '+';
+                }
+              }, 30);
+            });
+          }
+        });
+      }, { threshold: 0.3 });
+
+      const section = document.getElementById('counters-section');
+      if (section) observer.observe(section);
+    }
+  </script>
+</body>
+</html>
